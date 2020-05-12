@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    
+    <div id="app">
+        <p>
+            {{ message }}
+            {{ number }}
+            <button v-on:click="reverseMessage">
+                メッセージ反転
+            </button>
+            <p>{{ sayHi()}}</p>
+            <a v-text="message"></a>
+            <div v-html="html"></div>
+            <a :href="url">Google</a>
+            <a :[attribute]="url">Google</a>
+            <a :href="urlTwitter" :id="number">Twitter</a>
+            <!-- <a v-bind="twitterObject">Twitter</a> -->
+        </p>
+    </div>
+
+    <script>
+        new Vue({
+                el: "#app",
+                data: {
+                    message: 'Shotaro',
+                    number: 2,
+                    html: '<h1>あ</h1>',
+                    url: 'https://google.com',
+                    urlTwitter: 'https://twitter.com',
+                    attribute: 'href',
+                },
+                methods: {
+                    reverseMessage: function () {
+                        this.message = this.message.split('').reverse().join('')
+                    },
+                    sayHi: function() {
+                        return this.message
+                    },
+
+                }
+            })
+    </script>
+</body>
+</html>
