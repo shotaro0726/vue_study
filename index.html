@@ -16,6 +16,8 @@
                 メッセージ反転
             </button>
             <p>{{ sayHi()}}</p>
+            <p>現在{{ number }}回クリックされています。</p>
+            <button v-on:click="countUp">カウントアップ</button>
             <a v-text="message"></a>
             <div v-html="html"></div>
             <a :href="url">Google</a>
@@ -30,7 +32,7 @@
                 el: "#app",
                 data: {
                     message: 'Shotaro',
-                    number: 2,
+                    number: 0,
                     html: '<h1>あ</h1>',
                     url: 'https://google.com',
                     urlTwitter: 'https://twitter.com',
@@ -44,6 +46,9 @@
                         return this.message
                     },
 
+                    countUP: function() {
+                        this.number += 1
+                    },
                 }
             })
     </script>

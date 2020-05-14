@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    
+    <div id="app">
+        <h1 :class="{red: isActive, 'bg-blue': !isActive}">Color</h1>
+        <h1 :style="{styleObject, baseStyles}">Color</h1>
+        <button @click="isActive = !isActive">Change</button>
+        <p>現在{{ number }}回押されました。</p>
+        <p>{{ lessThanTree  }}</p>
+        <button @click="countUp()">カウントアップ</button>
+        <p v-on:mousemove="hover(3, $event)">マウスを載せてください<span v-on:mousemove.stop>反応しないでください</span></p>
+        <a v-on:click.prevent href="http://google.com">Google</a>
+        <p>X: {{x}}, Y: {{y}}</p>
+        <input type="text" v-on:keyup.space="myAlart">
+        <input type="text" v-model="message">
+        <h1>{{ message }}</h1>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                number: 0,
+                x: 0,
+                y: 0,
+                message: 'くんにちは',
+                isActive: true,
+                color: 'red',
+                bg: 'bg-blue',
+            },
+            methods: {
+                countUp: function() {
+                    this.number += 1
+                },
+                hover: function(divideNumber,event) {
+                    this.x = event.clientX / divideNumber;
+                    this.y = event.clientY / divideNumber;
+                },
+                myAlart() {
+                    alert('AAAAa')
+                },
+
+                baseStyles: {
+                    fontSize: '60px'
+                },
+            },
+
+            computed: {
+                lessThanTree: function() {
+                    console.log('conputed')
+                    return this.number > 3 ? '3より上' : '3以下'
+                },
+            },
+
+            watch: {
+                number: function() {
+                    var vm = this;
+                    setTimeout(function() {
+                        vm.number = 0
+                    }, 3000)
+                }
+            }
+        })
+    </script>
+
+    <style>
+        .red {
+            color: red;
+        }
+
+        .bg-blue {
+            background-color: blue;
+        }
+
+    </style>
+</body>
+</html>
