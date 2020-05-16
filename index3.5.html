@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <div id="app">
+        <ul>
+            <div v-for="fruit in fruits" :key="fruit">
+                <p>{{ fruit }}</p>
+                <input type="text">
+            </div>
+        </ul>
+        <button @click="remove">Delete</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                fruits: ['apple', 'banana', 'orange']
+            },
+            methods: {
+                remove: function() {
+                    this.fruits.shift()
+                }
+            }
+        })
+    </script>
+</body>
+</html>
