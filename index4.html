@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <div id="app1">
+        <p>{{ message }}</p>
+        <p>{{ name }}</p>
+        <p>{{ myData }}</p>
+        <button @click="name = 'Shot'">変更</button>
+    </div>
+
+    <div id="app2">
+        <p>{{ message }}</p>
+        <button @click="changeMessage1">インスタンス1のメッセージを変更</button>
+    </div>
+
+    <div id="app3">
+
+    </div>
+
+    <div id="app4">
+        <h1>Hello {{ name }}</h1>
+        <button @click="name = 'Taro'">名前を変更</button>
+        <button @click="destroy">インスタンスを破壊</button>
+    </div>
+    
+    <hello></hello>
+    <hello></hello>
+    <hello></hello>
+
+    <script>
+        Vue.component('hello', {
+            template: '<p>Hello</p>'
+        });
+
+        var data = {
+                message: 'インスタンス1',
+                name: 'Shotaro'
+            }
+        
+        var vm1 = new Vue({
+            el: "#app1",
+            data: data,
+            computed: {
+                myData: function () {
+                    return this.$data
+                }
+            }
+        })
+
+        console.log(vm1.$data);
+        
+        var vm2 = new Vue({
+            data: {
+                message: 'インスタンス2'
+            },
+            methods: {
+                changeMessage1: function() {
+                    vm1.message = 'インスタンス2から変えました'
+                }
+            },
+            template: '<h1>こんにちは、 {{ message }}</h1>'
+        }).$mount('#app2')
+
+        //vm2.$mount('#app2')
+
+        var vm3 = new Vue ({
+            data: {
+                name: 'Shotaro'
+            },
+            render: function(h) {
+                return h('h1', 'Ooki' + this.name);
+            }
+        }).$mount("#app3")
+
+        var dir = document.createElement('div');
+        console.log(dir)
+        console.log(document)
+        console.dir(document)
+
+        new Vue({
+            el: "#app4",
+            data: {
+                name: 'Shotaro'
+            },
+            BeforeCreate: function() {
+                console.log('BeforeCreate');
+            },
+            created: function() {
+                console.log('Created');
+            },
+            mounted: function() {
+                console.log('mounted');
+            },
+            updated: function() {
+                console.log('updated');
+            },
+            beforeDestroy: function() {
+                console.log('destroy');
+            },
+            destroyed: function() {
+                console.log('destroyed');
+            },
+            methods: {
+                destroy: function() {
+                    this.$destroy()
+                }
+            }
+        })
+
+        new Vue({
+            el: 'hello',
+            template: '<p>Hello</p>'
+        })
+    </script>
+</body>
+</html>
